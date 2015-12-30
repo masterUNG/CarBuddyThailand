@@ -1,31 +1,36 @@
 package apprtc.pn.carbuddythailand;
 
 /**
- * Created by masterUNG on 12/30/15 AD.
+ * Created by User on 30/12/2558.
  */
 public class MyData {
 
     //1# Category
-    public static final String[] categorySTRINGS = {
-            "เหตุ",
-            "เหตุ"
+    public static  final  String[] CategorySTRINGS = {
+            "แจ้วเหตุฉุกเฉิน",
+            "เหตุฉุกเฉิน",
+            "กทม.",
+            "ปริมนฑล",
+            "ภาคกลาง"
+
+    };
+    //2# name
+    public static  final String[] nameSTRINGS ={
+            "สถานีตำรวจ",
+            "ไฟใหม้",
+            "โรงพยาบาล",
+            "โรงพยาบาล",
+            "โรงพยาบาล"
 
     };
 
+    //3# Phon
+    public static final String[] phonSTRINGS ={
+            "119",
+            "022348847",
+            "10310",
+            "02594002065",
+            "056702015"
 
-    //2# Name
-    public static final String[] nameSTRINGS = {
-            "name1",
-            "name2"
     };
-
-
-    //3# Phone
-    public static final String[] phoneSTRINGS = {
-            "0818595309",
-            "191"
-    };
-
-
-
-}   // Main Class
+}     //Main Class
