@@ -2,6 +2,7 @@ package apprtc.pn.carbuddythailand;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -27,6 +28,38 @@ public class ManageTABLE {
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    public String[] searchName(String strName) {
+
+        try {
+
+            String[] resultStrings = null;
+            Cursor objCursor = readSqLiteDatabase.query(TABLE_PHONE,
+                    new String[]{COLUMN_ID, COLUMN_CATEGORY, COLUMN_NAME, COLUMN_PHONE},
+                    COLUMN_NAME + "=?",
+                    new String[]{String.valueOf(strName)},
+                    null, null, null, null);
+
+            if (objCursor != null) {
+                if (objCursor.moveToFirst()) {
+
+                    resultStrings = new String[4];
+                    resultStrings[0] = objCursor.getString(0);
+                    resultStrings[1] = objCursor.getString(1);
+                    resultStrings[2] = objCursor.getString(2);
+                    resultStrings[3] = objCursor.getString(3);
+
+                }   //if
+            }   // if
+            objCursor.close();
+            return resultStrings;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+        //return new String[0];
+    }
 
     //Add New Value to SQLite
     public long addNewValue(String strCategory, String strName, String strPhone) {
