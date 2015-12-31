@@ -1,7 +1,10 @@
 package apprtc.pn.carbuddythailand;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,9 +54,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "กรุณาพิมพ์คำที่ต้องการค้นหา", Toast.LENGTH_SHORT).show();
         } else {
 
+            searchName(strSearch);
+
         }
 
     }   // clickSearch
+
+    private void searchName(String strSearch) {
+
+        try {
+
+            String[] resultStrings = objManageTABLE.searchName(strSearch);
+
+            confirmCall(strSearch, resultStrings[3]);
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "ไม่มี " + strSearch + " ในฐานข้อมูล", Toast.LENGTH_SHORT).show();
+        }
+
+    }   // searchName
+
+    private void confirmCall(String strName, final String resultString) {
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.icon_phone);
+        objBuilder.setTitle(strName);
+        objBuilder.setMessage("คุณต้องการโทรไปที่ " + resultString);
+        objBuilder.setPositiveButton("โทร", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                intentToCall(resultString);
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.setNegativeButton("ไม่โทร", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+
+    }
+
+    private void intentToCall(String resultString) {
+        Intent objIntent = new Intent(Intent.ACTION_DIAL);
+        objIntent.setData(Uri.parse("tel:" + resultString));
+        startActivity(objIntent);
+    }
 
     private void imageViewController() {
 
